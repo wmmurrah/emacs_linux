@@ -1,0 +1,1 @@
+("~/.pyenv/" "~/Projects/MIDL/Valencia/" "~/Projects/Auburn/school_readiness_reliability/" "~/Projects/Auburn/lavaanfimlarticle/" "~/Dropbox/AU/TenurePromotion/portfolio/" "~/.emacs.d/elpa/jedi-core-20170121.610/" "~/Projects/FOCAL/eclskrelimportance/" "~/Software/professoR/" "~/Teaching/StatisticalProgramming/IntroResearchMethods/" "~/.emacs.d/elpa/jedi-core-20160709.722/")
