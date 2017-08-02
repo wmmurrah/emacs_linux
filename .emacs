@@ -167,6 +167,10 @@ your recently and most frequently used commands.")
 (setq exec-path (append exec-path '("/usr/local/stata14")))
 (setq inferior-STA-program-name "stata-mp")
 
+;; ado-mode
+(add-to-list 'load-path "~/.emacs.d/ado-mode/lisp")
+(require 'ado-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;; Python ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Set python to anaconda
 ;; from: https://samrelton.wordpress.com/2013/09/26/emacs-and-anaconda-python/
