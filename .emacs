@@ -1,5 +1,12 @@
 (custom-set-variables
- '(initial-frame-alist (quote ((fullscreen . maximized)))))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(package-selected-packages
+   (quote
+    (nlinum window-numbering jedi elpy org polymode auto-complete ido-gnus smex solarized-theme))))
 ;;;;;;;;;;;;;;;;;;;;;;;;; Package Systems ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; MELPA
 
@@ -12,14 +19,7 @@
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (window-numbering jedi elpy org polymode auto-complete ido-gnus smex solarized-theme))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -34,7 +34,26 @@
 
 (load-theme 'solarized-dark t)
 
+(global-set-key (kbd "M-x") 'smex)
+;; auto-hyphen
+(defadvice smex (around space-inserts-hyphen activate compile)
+        (let ((ido-cannot-complete-command 
+               `(lambda ()
+                  (interactive)
+                  (if (string= " " (this-command-keys))
+                      (insert ?-)
+                    (funcall ,ido-cannot-complete-command)))))
+          ad-do-it))
 
+;;; ido mode
+(require 'ido)
+    (ido-mode t)
+
+;;; Smex
+(autoload 'smex "smex"
+  "Smex is a M-x enhancement for Emacs, 
+    it provides a convenient interface to
+your recently and most frequently used commands.")
 
 (global-set-key (kbd "M-x") 'smex)
 ;; auto-hyphen
@@ -63,6 +82,27 @@
 ;; window-numbering
 (window-numbering-mode t)
 
+;; Preset `nlinum-format' for minimum width.
+(defun my-nlinum-mode-hook ()
+  (when nlinum-mode
+    (setq-local nlinum-format
+                (concat "%" (number-to-string
+                             ;; Guesstimate number of buffer lines.
+                             (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
+                        "d"))))
+(add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook)
+
+; word wrap
+(global-visual-line-mode t)
+;; column and line numbers
+(setq column-number-mode t)
+;; Kill all Dired buffers
+(defun kill-dired-buffers ()
+	 (interactive)
+	 (mapc (lambda (buffer) 
+           (when (eq 'dired-mode (buffer-local-value 'major-mode buffer)) 
+             (kill-buffer buffer))) 
+         (buffer-list)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; LaTeX ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq exec-path (append exec-path '("/usr/bin/tex")))
