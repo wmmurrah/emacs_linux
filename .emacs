@@ -6,7 +6,7 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (nlinum window-numbering jedi elpy org polymode auto-complete ido-gnus smex solarized-theme))))
+    (magit ess stan-snippets stan-mode nlinum window-numbering jedi elpy org polymode auto-complete ido-gnus smex solarized-theme))))
 ;;;;;;;;;;;;;;;;;;;;;;;;; Package Systems ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; MELPA
 
@@ -200,6 +200,21 @@ your recently and most frequently used commands.")
 
 ;; Elpy
 (elpy-enable)
-(elpy-use-ipython)
+;;(elpy-use-ipython)
 (setq elpy-rpc-backend "jedi")
 ;(setq jedi:complete-on-dot t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;; stan-mode ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'stan-mode)
+
+(require 'stan-snippets)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;; spss-mode ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/spss"))
+(require 'spss)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;; magit ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-set-key (kbd "C-x g") 'magit-status)
